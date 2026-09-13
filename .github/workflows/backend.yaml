@@ -24,12 +24,15 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-north-1
 
-    - name: run unit tests
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: python3.14
+
+    - name: Install dependencies and run unit tests
       run: |
         pip install -r ./backend/cloudresume-challenge/hello_world/requirements.txt
+        pip install pytest moto
         pytest ./backend/cloudresume-challenge/tests/unit
 
     - name: build and deploy SAM application
