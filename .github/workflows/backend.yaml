@@ -5,7 +5,7 @@ on:
     - main
     - test-branch
     paths:
-    - 'backend/**'
+    - 'backend/cloudresume-challenge/**'
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
 
     - name: validate SAM template
       run: |
-        sam validate --template-file ./backend/template.yaml
+        sam validate --template-file ./backend/cloudresume-challenge/template.yaml
 
     - name: Authenticate to AWS
       uses: aws-actions/configure-aws-credentials@v1
