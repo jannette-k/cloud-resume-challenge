@@ -1,0 +1,372 @@
+/* =========================================================
+   Janet Wanjiku — Resume Stylesheet
+   Design: clean paper surface, deep navy text, teal accent.
+   Signature: "config-key" eyebrow labels (janet.summary, etc.)
+   nod to YAML/IaC config files without being gimmicky.
+   ========================================================= */
+
+:root {
+  --bg: #f7f8fa;
+  --surface: #ffffff;
+  --text: #10151f;
+  --text-muted: #5b6577;
+  --border: #e2e5ea;
+  --accent: #0e7c86;
+  --accent-dark: #0a5c64;
+  --accent-soft: #e4f2f1;
+
+  --font-display: "Inter", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --max-width: 820px;
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+a {
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 56px 0 40px;
+  position: relative;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 100%);
+}
+
+.hero-content {
+  text-align: left;
+}
+
+.name {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.title {
+  margin: 4px 0 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--accent-dark);
+}
+
+.tagline {
+  margin: 10px 0 0;
+  max-width: 60ch;
+  color: var(--text-muted);
+  font-size: 0.98rem;
+}
+
+.contact-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 22px;
+}
+
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.contact-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  text-decoration: none;
+}
+
+.contact-links i {
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+/* ================= SECTIONS ================= */
+
+.section {
+  padding: 34px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.section:last-of-type {
+  border-bottom: none;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+}
+
+.section-title {
+  margin: 0 0 18px;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title i {
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+.section p {
+  color: var(--text);
+  max-width: 70ch;
+}
+
+/* ================= SKILLS ================= */
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.skill-category {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.skill-category h4 {
+  margin: 0 0 10px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--accent-dark);
+  text-transform: lowercase;
+}
+
+.skill-category ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.92rem;
+}
+
+.skill-category li {
+  margin-bottom: 5px;
+  color: var(--text);
+}
+
+/* ================= EXPERIENCE / EDUCATION / PROJECTS ================= */
+
+.experience-item,
+.education-item,
+.project-item {
+  margin-bottom: 24px;
+}
+
+.experience-item:last-child,
+.education-item:last-child,
+.project-item:last-child {
+  margin-bottom: 0;
+}
+
+.experience-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.experience-header h4 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+}
+
+.experience-header .date {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  background: var(--accent-soft);
+  padding: 2px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.experience-item ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
+.experience-item li {
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.project-item {
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+}
+
+.project-item h4 {
+  margin: 0 0 6px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.project-item p {
+  margin: 0 0 10px;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.project-item a {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+  padding: 28px 0 48px;
+  text-align: left;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.visitor-counter {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--accent-dark);
+}
+
+/* ================= MOTION ================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 40px 0 32px;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .experience-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* ================= PRINT ================= */
+
+@media print {
+  body {
+    background: #fff;
+    font-size: 12pt;
+  }
+
+  .hero {
+    padding: 0 0 20px;
+  }
+
+  .hero::after {
+    display: none;
+  }
+
+  .contact-links a {
+    border: none;
+    padding: 0;
+    background: none;
+  }
+
+  .section {
+    padding: 16px 0;
+    break-inside: avoid;
+  }
+
+  .project-item {
+    border: 1px solid var(--border);
+    box-shadow: none;
+  }
+
+  a {
+    color: var(--text);
+  }
+}

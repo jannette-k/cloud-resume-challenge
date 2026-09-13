@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  cloudresume-challenge
+
+  Sample SAM Template for cloudresume-challenge
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 3
+
+    # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
+    LoggingConfig:
+      LogFormat: JSON
+Resources:
+  VisitorCountTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: janet-resume-visitor-count
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+  VisitorCounterFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello_world/
+      Handler: app.lambda_handler
+      Runtime: python3.14
+      Architectures:
+      - x86_64
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref VisitorCountTable
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName: !Ref VisitorCountTable
+      Events:
+        GetCount:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /count
+            Method: get
+
+Outputs:
+  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
+  # Find out more about other implicit resources you can reference within SAM
+  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  VisitorCounterApi:
+    Description: API Gateway endpoint URL for Prod stage for Visitor Counter function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/Prod/count/"
+  VisitorCounterFunction:
+    Description: Visitor Counter Lambda Function ARN
+    Value: !GetAtt VisitorCounterFunction.Arn
+  VisitorCounterFunctionIamRole:
+    Description: Implicit IAM Role created for the Visitor Counter function
+    Value: !GetAtt VisitorCounterFunctionRole.Arn
