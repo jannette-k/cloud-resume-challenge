@@ -4,7 +4,7 @@ on:
   push:
     branches:
     - main
-    - frontend-test
+    - test-branch
     paths:
     - 'frontend/**'
 
@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@
+    - uses: actions/checkout@v4
     - name: Authenticate to AWS
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -22,7 +22,7 @@ jobs:
 
     - name: Sync frontend files to S3
       run: |
-        aws s3 sync ./frontend s3://cloudwithjanet-resume-bkt --delete   
+        aws s3 sync ./frontend s3://cloudwithjanet-resume-bkt --delete
 
     - run: |+
         aws cloudfront create-invalidation --distribution-id ${{vars.CLOUDFRONT_DISTRIBUTION_ID}} --paths "/*"
