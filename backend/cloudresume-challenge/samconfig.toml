@@ -3,7 +3,7 @@
 version = 0.1
 
 [default.global.parameters]
-stack_name = "cloudresume-challenge"
+stack_name = "cloudresume-stack"
 region = "eu-north-1"
 
 [default.build.parameters]
