@@ -1,0 +1,41 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - test-branch
+    paths:
+    - 'backend/cloudresume-challenge/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: validate SAM template
+      run: |
+        sam validate --template-file ./backend/cloudresume-challenge/template.yaml
+
+    - name: Authenticate to AWS
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-north-1
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: python3.14
+
+    - name: Install dependencies and run unit tests
+      run: |
+        pip install -r ./backend/cloudresume-challenge/hello_world/requirements.txt
+        pip install pytest moto
+        pytest ./backend/cloudresume-challenge/tests/unit
+
+    - name: build and deploy SAM application
+      run: |
+        sam build --template-file ./backend/template.yaml
+        sam deploy --template-file ./backend/template.yaml --stack-name cloud-resume-backend --capabilities CAPABILITY_IAM  
