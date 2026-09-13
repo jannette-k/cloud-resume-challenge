@@ -13,7 +13,7 @@
  */
 
 // ---- CONFIG -------------------------------------------------
-const API_URL = "https://dmvs0qnq0l.execute-api.eu-north-1.amazonaws.com/Prod/visitor-count";
+const API_URL = "https://dmvs0qnq0l.execute-api.eu-north-1.amazonaws.com/Prod/count";// Replace with your API Gateway URL
 
 // ---- FOOTER YEAR ---------------------------------------------
 document.getElementById("year").textContent = new Date().getFullYear();
