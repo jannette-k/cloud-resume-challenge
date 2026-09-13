@@ -38,4 +38,4 @@ jobs:
     - name: build and deploy SAM application
       run: |
         sam build --template-file backend/cloudresume-challenge/template.yaml
-        sam deploy --template-file ./backend/cloudresume-challenge/template.yaml --stack-name cloudresume-stack --capabilities CAPABILITY_IAM  
+        sam deploy --template-file ./backend/cloudresume-challenge/template.yaml --stack-name cloudresume-stack --capabilities CAPABILITY_IAM --no-confirm-changeset --no-fail-on-empty-changeset
