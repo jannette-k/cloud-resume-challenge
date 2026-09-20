@@ -1,10 +1,11 @@
+import os
 import boto3
 import json
 
 # import requests
 
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('janet-resume-visitor-count')
+table = dynamodb.Table(os.environ['TABLE_NAME'])
 
 def lambda_handler(event, context):
     response = table.update_item(
